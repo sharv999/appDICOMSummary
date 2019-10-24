@@ -22,16 +22,18 @@
 <div class="container">
 
     <div class="page-header">
-        <h1>DICOM Summary (Health Physics)</h1>
-        <p class="lead">
-            Drag and drop a DICOM Part 10 file into the region below for a summary of the key elements.
-        </p>
+        <h1>DICOM Summary</h1>
+        
         <p>
             This example illustrates how to extract known elements from the data set for display in a web page.
-            Note that DICOM files dropped here are not uploaded anywhere, all processing
-            is done inside your web browser in Javascript.
+            DICOM files dropped here are not uploaded anywhere - all processing is done inside your web browser in Javascript.
         </p>
-        <strong>Use of this example require IE10+ or any other modern browser.</strong>
+		<p>
+            Usage: Drag and drop a DICOM Part 10 file into the region below for a summary of the key elements.
+        </p>
+		<p>
+			Note: This is a direct port of port of Cornerstone's dicomParser.js (https://github.com/cornerstonejs/dicomParser)
+		</p>
 
     </div>
 
@@ -50,7 +52,7 @@
 
         <div class="panel panel-default ">
             <div class="panel-heading">
-                <h3 class="panel-title">Patient Information</h3>
+                <h3 class="panel-title">Patient</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -74,7 +76,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Study Information</h3>
+                <h3 class="panel-title">Study</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -107,7 +109,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Series Information</h3>
+                <h3 class="panel-title">Series</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -140,7 +142,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Instance Information</h3>
+                <h3 class="panel-title">Instance</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -175,7 +177,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Image Information</h3>
+                <h3 class="panel-title">Image</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -245,7 +247,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Equipment Information</h3>
+                <h3 class="panel-title">Equipment</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
