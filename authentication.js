@@ -18,8 +18,8 @@ var passport = require('passport');
 var OnshapeStrategy = require('passport-onshape').Strategy;
 
 // Hardwired rather than ENV
-var oauthClientId = 'FH5F4SHWN5IMPFH5RM6HZKVON6H3D5PINRHSQNI=';
-var oauthClientSecret = 'NQT5C7NTRYFDGSYJUVYX2XOEJ7NVENMONIKZ3GCTIJQETJ3UF7DA====';
+var oauthClientId = 'NTXBUJ3CWFEGNZEWIPLO7KLF74O5KDIUBXF24QY=';
+var oauthClientSecret = '42PJJSYZ3G6YLDAWKPQRVGFQY4MS527YOHNKQC4O4ZCBM4VJR7BQ====';
 var callbackUrl = 'https://frozen-tor-61095.herokuapp.com/oauthRedirect';
 
 var oauthUrl = 'https://oauth.onshape.com';
