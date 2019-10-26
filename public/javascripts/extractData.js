@@ -1,4 +1,12 @@
-<script>
+/**********************************************************
+*
+* MODULE: 		extractData.js
+*
+* PROJECT: 		appDICOMSummary
+*
+* DESCRIPTION:	Parsing routines for index.html
+*
+***********************************************************/
 
     function dumpDataSet(dataSet)
     {
@@ -131,6 +139,3 @@
     var dropZone = document.getElementById('dropZone');
     dropZone.addEventListener('dragover', handleDragOver, false);
     dropZone.addEventListener('drop', handleFileSelect, false);
-
-
-</script>
