@@ -3,8 +3,8 @@
 	<head>
 		<!-- Use Bootstrap CSS infrastructure (mobile friendly) -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">-->
 		<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
-		<!--<link rel="stylesheet" type="text/css" href="../public/stylesheets/bootstrap.min.css">-->
 
 		<style>
 			#dropZone {
@@ -29,6 +29,16 @@
 			
 			<!-- Full-width container -->
 			<div id="dropZone" class="container-fluid">
+				<br>
+				<div id="status" class="alert alert-success">
+					<div id="statusText">
+						Status: Ready (no file loaded)
+					</div>
+					<ul id="warnings">
+
+					</ul>
+				</div>
+
 				<div class="panel panel-default ">
 					<!-- First row -->
 					<div class="panel-body">
