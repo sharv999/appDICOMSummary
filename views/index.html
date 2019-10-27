@@ -3,8 +3,8 @@
 	<head>
 		<!-- Use Bootstrap CSS infrastructure (mobile friendly) -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
 		<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
+		<!--<link rel="stylesheet" type="text/css" href="../public/stylesheets/bootstrap.min.css">-->
 
 		<style>
 			#dropZone {
@@ -29,23 +29,13 @@
 			
 			<!-- Full-width container -->
 			<div id="dropZone" class="container-fluid">
-				<br>
-				<div id="status" class="alert alert-success">
-					<div id="statusText">
-						Status: Ready (no file loaded)
-					</div>
-					<ul id="warnings">
-
-					</ul>
-				</div>
-
 				<div class="panel panel-default ">
 					<!-- First row -->
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-md-4"><h3>Patient</h3></div>
-							<div class="col-md-4"><h3>Study</h3></div>
-							<div class="col-md-4"><h3>Series</h3></div>
+							<div class="col-md-4 bg-secondary text-white"><h3>Patient</h3></div>
+							<div class="col-md-4 bg-secondary text-white"><h3>Study</h3></div>
+							<div class="col-md-4 bg-secondary text-white"><h3>Series</h3></div>
 						</div>
 						<div class="row">
 							<div class="col-md-2"><b>Name:</b></div>
@@ -99,9 +89,9 @@
 					<!-- Second row -->
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-md-4"><h3>Instance</h3></div>
-							<div class="col-md-4"><h3>Image</h3></div>
-							<div class="col-md-4"><h3>Equipment</h3></div>
+							<div class="col-md-4 bg-secondary text-white"><h3>Instance</h3></div>
+							<div class="col-md-4 bg-secondary text-white"><h3>Image</h3></div>
+							<div class="col-md-4 bg-secondary text-white"><h3>Equipment</h3></div>
 						</div>
 						<div class="row">
 							<div class="col-md-2"><b>Instance No:</b></div>
@@ -218,7 +208,7 @@
 					<!-- Third row -->
 					<div class="panel-body">
 						<div class="row">
-							<div class="col-md-12"><h3>UIDs</h3></div>
+							<div class="col-md-12 bg-secondary text-white"><h3>UIDs</h3></div>
 						</div>
 						<div class="row">
 							<div class="col-md-2"><b>Study UID:</b></div>
@@ -253,7 +243,7 @@
 						<div class="row">
 							<div class="col-md-2"><b>Study UID:</b></div>
 							<div class="col-md-7"><span data-dicom="x0020000d"></div>
-							<div class="col-md-2"><img src="images/health_physics_logo_210_99.jpg" alt="HP logo" height="99" width="210"></div>							
+							<div class="col-md-2"><img src="images/health_physics_logo_210_99.jpg" alt="HP logo" height="99" width="210"></div>
 						</div>
 				</div>      
 			</div>
