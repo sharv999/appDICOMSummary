@@ -1,271 +1,205 @@
+<!-- 
+/***********************************************************
+*
+* MODULE: 		index.html
+*
+* PROJECT: 		appDICOMSummary2
+*
+* DESCRIPTION:	Main HTML
+*
+* TODO: Add ability to strip image data from dropped file
+*
+***********************************************************/
+-->
+<!-- Specify HTML5 -->
 <!doctype html>
 <html lang="en">
+
 	<head>
 		<!-- Use Bootstrap CSS infrastructure (mobile friendly) -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!--<link rel="stylesheet" type="text/css" href="../public/stylesheets/bootstrap.min.css">-->
 		<link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.min.css">
-
-		<style>
-			#dropZone {
-				border-style: solid;
-				border-width: 1px;
-				border-color: lightgray;
-			}
-		</style>
-
+		<link rel="stylesheet" type="text/css" href="stylesheets/cornerstone.min.css">
 	</head>
+	
 	<body>
-		<!-- Responsive fixed-width container -->
+	
 		<div class="container">
-
+		
 			<div class="page-header">
-				<h1>DICOM Summary</h1>
+				<h1>Health Physics DICOM Viewer</h1>			
+			</div>
 				<p>
-					<b>Usage:</b> Drag and drop a DICOM Part 10 file into the region below for a summary of the key elements.
-					<b>Note:</b> This is a port of Cornerstone's <a href="https://github.com/cornerstonejs/dicomParser">dicomParser.js</a>
+					<b>Overview:</b> This is a simple DICOM viewer that uses the 
+					<a href="https://github.com/cornerstonejs/cornerstone">
+						Cornerstone
+					</a>
+					JavaScript library to to read and display a DICOM P10 SOP instance.  Only the first frame of a multiframe DICOM P10 file will be displayed.
 				</p>
+				<p>
+				<b>Usage:</b> Drag and drop or select a file from the local file system.
+				Left mouse button: WW/WC. Middle mouse button: Pan. Right mouse button: Zoom. Middle mouse wheel: Zoom.
+				<br>        
+				
+				<p>
+				Click
+					<a href="https://github.com/cornerstonejs/cornerstoneWADOImageLoader/blob/master/docs/TransferSyntaxes.md">
+						here
+					</a>
+					to see the full list of transfer syntaxes currently supported.
+				</p>
+				<hr>
+			
+			<!-- Image load progress -->
+			<!-- <div id="loadProgress">Image load progress:</div> -->
+			
+			<!-- File picker -->
+			<div class="row">
+				<form id="form" class="form-horizontal">
+					<div class="form-group">
+						<div class="col-sm-3">
+							<input type="file" id="selectFile" >
+						</div>
+					</div>
+				</form>
 			</div>
 			
-			<!-- Full-width container -->
-			<div id="dropZone" class="container-fluid">
-				<br>
-				<!-- Required ... -->
+			<!-- LUT select -->
+			<!--<input type="checkbox" id="toggleModalityLUT"> Apply Modality LUT</input>
+			<input type="checkbox" id="toggleVOILUT"> Apply VOI LUT</input> -->
+			
+			<!-- File load status -->
+			<div class="row">
 				<div id="status" class="alert alert-success">
 					<div id="statusText">
 						Status: Ready (no file loaded)
 					</div>
 					<ul id="warnings">
-
 					</ul>
 				</div>
-
-				<div class="panel panel-default ">
-					<!-- First row -->
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-4 bg-secondary text-white"><h3>Patient</h3></div>
-							<div class="col-md-4 bg-secondary text-white"><h3>Study</h3></div>
-							<div class="col-md-4 bg-secondary text-white"><h3>Series</h3></div>
+			</div>
+			
+			<div class="row">
+			
+				<!-- Image window -->
+				<div class="col-md-6">
+					<div style="width:512px;height:512px;position:relative;color: white;display:inline-block;border-style:solid;border-color:black;"
+						 oncontextmenu="return false"
+						 class='disable-selection noIbar'
+						 unselectable='on'
+						 onselectstart='return false;'
+						 onmousedown='return false;'>
+						 
+						<div id="dicomImage"
+							 style="width:512px;height:512px;top:0px;left:0px; position:absolute">
+						</div>	
+					</div>
+					
+					<!-- Footer -->
+					<div class="row">
+						<div class="col-md-4">
+							<span>&copy <a href="https://www.healthphysics.com.au">Health Physics Pty Ltd</a></span>
 						</div>
-						<div class="row">
-							<div class="col-md-2"><b>Name:</b></div>
-							<div class="col-md-2"><span data-dicom="x00100010"></span></div>
-							<div class="col-md-2"><b>Description:</b></div>
-							<div class="col-md-2"><span data-dicom="x00081030"></span></div>
-							<div class="col-md-2"><b>Description:</b></div>
-							<div class="col-md-2"><span data-dicom="x0008103e"></span></div>
+						<div class="col-md-4">
 						</div>
-						<div class="row">
-							<div class="col-md-2"><b>ID:</b></div>
-							<div class="col-md-2"><span data-dicom="x00100020"></span></div>
-							<div class="col-md-2"><b>Protocol:</b></div>
-							<div class="col-md-2"><span data-dicom="x00181030"></span></div>
-							<div class="col-md-2"><b>No:</b></div>
-							<div class="col-md-2"><span data-dicom="x00200011"></span></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"><b>DOB:</b></div>
-							<div class="col-md-2"><span data-dicom="x00100030"></span></div>
-							<div class="col-md-2"><b>Accession No:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080050"></span></div>
-							<div class="col-md-2"><b>Modality:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080060"></span></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"><b>Sex:</b></div>
-							<div class="col-md-2"><span data-dicom="x00100040"></span></div>
-							<div class="col-md-2"><b>ID:</b></div>
-							<div class="col-md-2"><span data-dicom="x00200010"></span></div>
-							<div class="col-md-2"><b>Body Part:</b></div>
-							<div class="col-md-2"><span data-dicom="x00180015"></span></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"><b>Date:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080020"></span></div>
-							<div class="col-md-2"><b>Date:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080021"></span></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"><b>Time:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080030"></span></div>
-							<div class="col-md-2"><b>Time:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080031"></span></div>
+						<div class="col-md-4">
+							<span><a href="https://www.healthphysics.com.au"><img border="0" alt="HP logo" src="images/health_physics_logo_210_99.jpg" height="50" width="105"></a></span>
 						</div>
 					</div>
-					<!-- Second row -->
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-4 bg-secondary text-white"><h3>Instance</h3></div>
-							<div class="col-md-4 bg-secondary text-white"><h3>Image</h3></div>
-							<div class="col-md-4 bg-secondary text-white"><h3>Equipment</h3></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"><b>Instance No:</b></div>
-							<div class="col-md-2"><span data-dicom="x00200013"></span></div>
-							<div class="col-md-2"><b>Rows:</b></div>
-							<div class="col-md-2"><span data-dicomUint="x00280010"></span></div>
-							<div class="col-md-2"><b>Manufacturer:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080070"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"><b>Acquisition No:</b></div>
-							<div class="col-md-2"><span data-dicom="x00200012"></span></div>
-							<div class="col-md-2"><b>Columns:</b></div>
-							<div class="col-md-2"><span data-dicomUint="x00280011"></span></div>
-							<div class="col-md-2"><b>Model:</b></div>
-							<div class="col-md-2"><span data-dicom="x00081090"></div>
-						</div>
-						<div class="row">	
-							<div class="col-md-2"><b>Acquisition Date:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080022"></span></div>
-							<div class="col-md-2"><b>Photomet. Interp.:</b></div>
-							<div class="col-md-2"><span data-dicom="x00280004"></span></div>
-							<div class="col-md-2"><b>Station Name:</b></div>
-							<div class="col-md-2"><span data-dicom="x00081010"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"><b>Acquisition Time:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080032"></span></div>
-							<div class="col-md-2"><b>Image Type:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080008"></span></div>
-							<div class="col-md-2"><b>AE Title:</b></div>
-							<div class="col-md-2"><span data-dicom="x00020016"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"><b>Content Date:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080023"></span></div>
-							<div class="col-md-2"><b>Bits Alloc.:</b></div>
-							<div class="col-md-2"><span data-dicomUint="x00280100"></span></div>
-							<div class="col-md-2"><b>Institution Name:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080080"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"><b>Content Time:</b></div>
-							<div class="col-md-2"><span data-dicom="x00080033"></span></div>
-							<div class="col-md-2"><b>Bits Stored:</b></div>
-							<div class="col-md-2"><span data-dicomUint="x00280101"></span></div>
-							<div class="col-md-2"><b>Software Version:</b></div>
-							<div class="col-md-2"><span data-dicom="x00181020"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"><b>HighBit:</b></div>
-							<div class="col-md-2"><span data-dicomUint="x00280102"></span></div>
-							<div class="col-md-2"><b>Implement. Vers.:</b></div>
-							<div class="col-md-2"><span data-dicom="x00020013"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"><b>Pixel Rep.(0=us):</b></div>
-							<div class="col-md-2"><span data-dicomUint="x00280103"></span></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>					
-						</div>
-						<div class="row">
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"><b>Rescale Slope:</b></div>
-							<div class="col-md-2"><span data-dicom="x00281053"></span></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>					
-						</div>
-						<div class="row">
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"><b>Rescale Intercept:</b></div>
-							<div class="col-md-2"><span data-dicom="x00281052"></span></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"><b>Image Pos. Pat.:</b></div>
-							<div class="col-md-2"><span data-dicom="x00200032"></span></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"><b>Image Orient. Pat.:</b></div>
-							<div class="col-md-2"><span data-dicom="x00200037"></span></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"><b>Pixel Spacing:</b></div>
-							<div class="col-md-4"><span data-dicom="x00280030"></span></div>
-							
-						</div>
-						<div class="row">
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"><b>Samples Per Pixel:</b></div>
-							<div class="col-md-2"><span data-dicomUint="x00280002"></span></div>
-							<div class="col-md-2"></div>
-							<div class="col-md-2"></div>
-						</div>	
-					</div>	
-					<!-- Third row -->
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-md-12 bg-secondary text-white"><h3>UIDs</h3></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"><b>Study UID:</b></div>
-							<div class="col-md-8"><span data-dicom="x0020000d"></div>
-							<div class="col-md-2"></div>							
-						</div>
-						<div class="row">
-							<div class="col-md-2"><b>Series UID:</b></div>
-							<div class="col-md-8"><span data-dicom="x0020000e"></div>
-							<div class="col-md-2"></div>
-						</div>
-						<div class="row">
-							<div class="col-md-2"><b>Instance UID:</b></div>
-							<div class="col-md-8"><span data-dicom="x00080018"></div>
-							<div class="col-md-2"></div>
-						</div>	
-						</div><div class="row">
-							<div class="col-md-2"><b>SOP Class UID:</b></div>
-							<div class="col-md-8"><span data-dicom="x00080016"></div>
-							<div class="col-md-2"></div>
-						</div>					
-						<div class="row">
-							<div class="col-md-2"><b>Transf. Syntax UID:</b></div>
-							<div class="col-md-8"><span data-dicom="x00020010"></div>
-							<div class="col-md-2"></div>
-						</div>					
-						<div class="row">
-							<div class="col-md-2"><b>Frame of Ref. UID:</b></div>
-							<div class="col-md-8"><span data-dicom="x00200052"></div>
-							<div class="col-md-2"></div>							
-						</div>
-						<div class="row">
-							<div class="col-md-2"><b>Study UID:</b></div>
-							<div class="col-md-7"><span data-dicom="x0020000d"></div>
-							<div class="col-md-2"><img src="images/health_physics_logo_210_99.jpg" alt="HP logo" height="99" width="210"></div>
-						</div>
-				</div>      
+				</div>
+				
+				<!-- Parsed data area -->
+				<div class="col-md-3">
+					<small>
+						<span><h4><b>Patient</b></h4></span>
+						<span><b>Name:</b>&nbsp &nbsp</span><span id="patientName"></span><br>
+						<span><b>ID:</b>&nbsp &nbsp</span><span id="patientID"></span><br>
+						<span><b>DOB:</b>&nbsp &nbsp</span><span id="patientDOB"></span><br>
+						<span><b>Sex:</b>&nbsp &nbsp</span><span id="patientSex"></span><br>
+						<span><h4><b>Study</b></h4></span>
+						<span><b>Description:</b>&nbsp &nbsp</span><span id="studyDescription"></span><br>
+						<span><b>Protocol:</b>&nbsp &nbsp</span><span id="studyProtocol"></span><br>
+						<span><b>Accession No.:</b>&nbsp &nbsp</span><span id="studyAccessionNo"></span><br>
+						<span><b>ID:</b>&nbsp &nbsp</span><span id="studyID"></span><br>
+						<span><b>Date:</b>&nbsp &nbsp</span><span id="studyDate"></span><br>
+						<span><b>Time:</b>&nbsp &nbsp</span><span id="studyTime"></span><br>
+						<span><b>Institution Name:</b>&nbsp &nbsp</span><span id="institutionName"></span><br>
+						<span><b>UID:</b>&nbsp &nbsp</span><span id="studyUID"></span><br>
+						<span><h4><b>Series</b></h4></span>
+						<span><b>Description:</b>&nbsp &nbsp</span><span id="seriesDescription"></span><br>
+						<span><b>No.:</b>&nbsp &nbsp</span><span id="seriesNo"></span><br>
+						<span><b>Modality:</b>&nbsp &nbsp</span><span id="seriesModality"></span><br>
+						<span><b>Manufacturer:</b>&nbsp &nbsp</span><span id="seriesManufacturer"></span><br>
+						<span><b>Model:</b>&nbsp &nbsp</span><span id="seriesModel"></span><br>
+						<span><b>StationName:</b>&nbsp &nbsp</span><span id="seriesStationName"></span><br>
+						<span><b>AETitle:</b>&nbsp &nbsp</span><span id="seriesAETitle"></span><br>
+						<span><b>Body part:</b>&nbsp &nbsp</span><span id="seriesBodyPart"></span><br>
+						<span><b>Date:</b>&nbsp &nbsp</span><span id="acquisitionDate"></span><br>
+						<span><b>Time:</b>&nbsp &nbsp</span><span id="acquisitionTime"></span><br>
+						<span><b>UID:</b>&nbsp &nbsp</span><span id="seriesUID"></span><br>
+					</small>
+				</div>
+				<div class="col-md-3">
+					<small>
+						<span><h4><b>Image</b></h4></span>
+						<span><b>Transfer Syntax:</b>&nbsp &nbsp</span><span id="transferSyntax"></span><br>
+						<span><b>SOP Class:</b>&nbsp &nbsp</span><span id="sopClass"></span><br>
+						<span><b>Samples Per Pixel:</b>&nbsp &nbsp</span><span id="samplesPerPixel"></span><br>
+						<span><b>Photometric Interpretation:</b>&nbsp &nbsp</span><span id="photometricInterpretation"></span><br>
+						<span><b>Number Of Frames:</b>&nbsp &nbsp</span><span id="numberOfFrames"></span><br>
+						<span><b>Planar Configuration:</b>&nbsp &nbsp</span><span id="planarConfiguration"></span><br>
+						<span><b>Rows:</b>&nbsp &nbsp</span><span id="rows"></span><br>
+						<span><b>Columns:</b>&nbsp &nbsp</span><span id="columns"></span><br>
+						<span><b>Pixel Spacing:</b>&nbsp &nbsp</span><span id="pixelSpacing"></span><br>
+						<span><b>Bits Allocated:</b>&nbsp &nbsp</span><span id="bitsAllocated"></span><br>
+						<span><b>Bits Stored:</b>&nbsp &nbsp</span><span id="bitsStored"></span><br>
+						<span><b>High Bit:</b>&nbsp &nbsp</span><span id="highBit"></span><br>
+						<span><b>Pixel Representation:</b>&nbsp &nbsp</span><span id="pixelRepresentation"></span><br>
+						<span><b>WindowCenter:</b>&nbsp &nbsp</span><span id="windowCenter"></span><br>
+						<span><b>WindowWidth:</b>&nbsp &nbsp</span><span id="windowWidth"></span><br>
+						<span><b>RescaleIntercept:</b>&nbsp &nbsp</span><span id="rescaleIntercept"></span><br>
+						<span><b>RescaleSlope:</b>&nbsp &nbsp</span><span id="rescaleSlope"></span><br>
+						<span><b>Basic Offset Table Entries:</b>&nbsp &nbsp</span><span id="basicOffsetTable"></span><br>
+						<span><b>Fragments:</b>&nbsp &nbsp</span><span id="fragments"></span><br>
+						<span><b>Min Stored Pixel Value:</b>&nbsp &nbsp</span><span id="minStoredPixelValue"></span><br>
+						<span><b>Max Stored Pixel Value:</b>&nbsp &nbsp</span><span id="maxStoredPixelValue"></span><br>
+						<span><b>UID:</b>&nbsp &nbsp</span><span id="instanceUID"></span><br>			
+						<!-- <span><b>Total Time:</b>&nbsp &nbsp</span><span id="totalTime"></span><br>
+						<span><b>Load Time:</b>&nbsp &nbsp</span><span id="loadTime"></span><br>
+						<span><b>Decode Time:</b>&nbsp &nbsp</span><span id="decodeTime"></span><br> -->
+					</small>
+				</div>
+			
 			</div>
+			
+			<br>
+			
 		</div>
+
 	</body>
 
-	<!-- Run using node.js paths  -->
-	<script src="javascripts/dicomParser.js"></script>
-	<script src="javascripts/jquery.min.js"></script>
+	<!-- include the cornerstone library -->
+	<script src="javascripts/cornerstone.min.js"></script>
+	<script src="javascripts/cornerstoneMath.min.js"></script>
+	<script src="javascripts/cornerstoneTools.min.js"></script>
 
-	<!-- Replace Javascript with single .js file -->
+	<!-- include the dicomParser library as the WADO image loader depends on it -->
+	<script src="javascripts/dicomParser.min.js"></script>
+
+	<!-- include the cornerstoneWADOImageLoader library -->
+	<script src="javascripts/cornerstoneWADOImageLoader.js"></script>
+
+	<!-- uids -->
+	<script src="javascripts/uids.js"></script>
+
+	<!-- Lines ONLY required for this example to run without building the project -->
+	<script>window.cornerstoneWADOImageLoader || document.write('<script src="https://unpkg.com/cornerstone-wado-image-loader">\x3C/script>')</script>
+	<script src="javascripts/initializeWebWorkers.js"></script>
+		
+	<!-- Main DICOM extraction routine -->
 	<script src="javascripts/extractData.js"></script>
-
+	
+	<!-- Needed for status update $ -->
+	<script src="javascripts/jquery.min.js"></script>
+		
 </html>
