@@ -108,15 +108,15 @@
 			document.getElementById('studyUID').textContent = image.data.string('x0020000d');
 			// Series data
 			document.getElementById('seriesDescription').textContent = image.data.string('x0008103e');
-			document.getElementById('seriesNo').textContent = image.data.string('x00200011');
+			//document.getElementById('seriesNo').textContent = image.data.string('x00200011');
 			document.getElementById('seriesModality').textContent = image.data.string('x00080060');
 			document.getElementById('seriesManufacturer').textContent = image.data.string('x00080070');
 			document.getElementById('seriesModel').textContent = image.data.string('x00081090');
 			document.getElementById('seriesStationName').textContent = image.data.string('x00081010');
 			document.getElementById('seriesAETitle').textContent = image.data.string('x00020016');	
 			document.getElementById('seriesBodyPart').textContent = image.data.string('x00180015');
-			document.getElementById('acquisitionDate').textContent = image.data.string('x00080022');
-			document.getElementById('acquisitionTime').textContent = image.data.string('x00080032');
+			//document.getElementById('acquisitionDate').textContent = image.data.string('x00080022');
+			//document.getElementById('acquisitionTime').textContent = image.data.string('x00080032');
 			document.getElementById('seriesUID').textContent = image.data.string('x0020000e');
 			// Image data
 			document.getElementById('transferSyntax').textContent = getTransferSyntax();

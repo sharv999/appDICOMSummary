@@ -27,14 +27,21 @@
 		<div class="container">
 		
 			<div class="page-header">
-				<h1>Health Physics DICOM Viewer</h1>			
+					<div class="row">
+						<div class="col-md-10">
+							<h1>Health Physics DICOM Viewer</h1>
+						</div>
+						<div class="col-md-2">
+							<span><a href="https://www.healthphysics.com.au"><img border="0" alt="HP logo" src="images/health_physics_logo_210_99.jpg" height="50" width="105"></a></span>
+						</div>
+					</div>				
 			</div>
 				<p>
 					<b>Overview:</b> This is a simple DICOM viewer that uses the 
 					<a href="https://github.com/cornerstonejs/cornerstone">
 						Cornerstone
 					</a>
-					JavaScript library to read and display a DICOM P10 SOP instance.  Only the first frame of a multiframe DICOM P10 file will be displayed.
+					JavaScript library to to read and display a DICOM P10 SOP instance.  Only the first frame of a multiframe DICOM P10 file will be displayed.
 				</p>
 				<p>
 				<b>Usage:</b> Drag and drop or select a file from the local file system.
@@ -83,7 +90,7 @@
 			
 				<!-- Image window -->
 				<div class="col-md-6">
-					<div style="width:512px;height:512px;position:relative;color: white;display:inline-block;border-style:solid;border-color:black;"
+					<div style="width:512px; height:512px; position:relative; color:white; display:inline-block; border-style:solid; border-color:black;"
 						 oncontextmenu="return false"
 						 class='disable-selection noIbar'
 						 unselectable='on'
@@ -96,27 +103,18 @@
 					</div>
 					
 					<!-- Footer -->
-					<div class="row">
-						<div class="col-md-4">
-							<span>&copy <a href="https://www.healthphysics.com.au">Health Physics Pty Ltd</a></span>
-						</div>
-						<div class="col-md-4">
-						</div>
-						<div class="col-md-4">
-							<span><a href="https://www.healthphysics.com.au"><img border="0" alt="HP logo" src="images/health_physics_logo_210_99.jpg" height="50" width="105"></a></span>
-						</div>
-					</div>
+					
 				</div>
 				
 				<!-- Parsed data area -->
 				<div class="col-md-3">
 					<small>
-						<span><h4><b>Patient</b></h4></span>
+						<span><h4 class="bg-info">Patient</h4></span>
 						<span><b>Name:</b>&nbsp &nbsp</span><span id="patientName"></span><br>
 						<span><b>ID:</b>&nbsp &nbsp</span><span id="patientID"></span><br>
 						<span><b>DOB:</b>&nbsp &nbsp</span><span id="patientDOB"></span><br>
 						<span><b>Sex:</b>&nbsp &nbsp</span><span id="patientSex"></span><br>
-						<span><h4><b>Study</b></h4></span>
+						<span><h4 class="bg-info">Study</h4></span>
 						<span><b>Description:</b>&nbsp &nbsp</span><span id="studyDescription"></span><br>
 						<span><b>Protocol:</b>&nbsp &nbsp</span><span id="studyProtocol"></span><br>
 						<span><b>Accession No.:</b>&nbsp &nbsp</span><span id="studyAccessionNo"></span><br>
@@ -125,23 +123,20 @@
 						<span><b>Time:</b>&nbsp &nbsp</span><span id="studyTime"></span><br>
 						<span><b>Institution Name:</b>&nbsp &nbsp</span><span id="institutionName"></span><br>
 						<span><b>UID:</b>&nbsp &nbsp</span><span id="studyUID"></span><br>
-						<span><h4><b>Series</b></h4></span>
-						<span><b>Description:</b>&nbsp &nbsp</span><span id="seriesDescription"></span><br>
-						<span><b>No.:</b>&nbsp &nbsp</span><span id="seriesNo"></span><br>
+						<span><h4 class="bg-info">Series</h4></span>
+						<span><b>Description:</b>&nbsp &nbsp</span><span id="seriesDescription"></span><br>	
 						<span><b>Modality:</b>&nbsp &nbsp</span><span id="seriesModality"></span><br>
 						<span><b>Manufacturer:</b>&nbsp &nbsp</span><span id="seriesManufacturer"></span><br>
 						<span><b>Model:</b>&nbsp &nbsp</span><span id="seriesModel"></span><br>
 						<span><b>StationName:</b>&nbsp &nbsp</span><span id="seriesStationName"></span><br>
 						<span><b>AETitle:</b>&nbsp &nbsp</span><span id="seriesAETitle"></span><br>
-						<span><b>Body part:</b>&nbsp &nbsp</span><span id="seriesBodyPart"></span><br>
-						<span><b>Date:</b>&nbsp &nbsp</span><span id="acquisitionDate"></span><br>
-						<span><b>Time:</b>&nbsp &nbsp</span><span id="acquisitionTime"></span><br>
+						<span><b>Body part:</b>&nbsp &nbsp</span><span id="seriesBodyPart"></span><br>						
 						<span><b>UID:</b>&nbsp &nbsp</span><span id="seriesUID"></span><br>
 					</small>
 				</div>
 				<div class="col-md-3">
 					<small>
-						<span><h4><b>Image</b></h4></span>
+						<span><h4 class="bg-info">Image</h4></span>
 						<span><b>Transfer Syntax:</b>&nbsp &nbsp</span><span id="transferSyntax"></span><br>
 						<span><b>SOP Class:</b>&nbsp &nbsp</span><span id="sopClass"></span><br>
 						<span><b>Samples Per Pixel:</b>&nbsp &nbsp</span><span id="samplesPerPixel"></span><br>
